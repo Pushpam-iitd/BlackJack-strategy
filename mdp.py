@@ -158,9 +158,9 @@ for i in range(100):
                     s1 += all_states_Dval[a][j].transition_player(all_states_Dval[a][k],1)*(player_values0[53*a+k])
                 # print("first s1 is ", s1)
                 #double
-                for k in range(len(all_states_Dval[a])):
-                    s2 += all_states_Dval[a][j].transition_player(all_states_Dval[a][k],1)*(values2[all_states_Dval[a][k].Psum-4][all_states_Dval[a][k].Dsum-2])
-                #Split
+                # for k in range(len(all_states_Dval[a])):
+                #     s2 += all_states_Dval[a][j].transition_player(all_states_Dval[a][k],1)*(values2[all_states_Dval[a][k].Psum-4][all_states_Dval[a][k].Dsum-2])
+                # #Split
                 # if all_states_Dval[a][j].pair!=0:
                 #     for k in range(len(all_states_Dval[a])):
                 #         for n in range(len(all_states_Dval[a])):
@@ -176,7 +176,7 @@ for i in range(100):
             #Stand
             s4 = values[all_states_Dval[a][j].Psum - 4][all_states_Dval[a][j].Dsum - 2]
             # print("s4 is   ", s4,"           s1 is   ", s1)
-            l=[s1,s2,s4]
+            l=[s1,s4]
             player_values1[53*a+j]=max(l)
             # player_actions[53*a+j]=l.index(max(l))+1
             # player_values1[53 * a + j] = s1
