@@ -165,3 +165,55 @@ player_values1 = [0]*(len(all_states))
 player_actions = [1]*(len(all_states)) #1 for Hit 2 for Double 3 for Split 4 for Stand
 
 
+
+# check this function:  player_values update ; max over s1 ans s4 only; match with pseudocode
+for i in range(100):
+    print(i)
+    for a in range(10):
+        for j in range(len(all_states_Dval[a])):
+            if all_states_Dval[a][j].Psum<=21:
+                s1 = 0
+                s2 = 0
+                s3 = 0
+                s4 = 0
+                if all_states_Dval[a][j].isTwoCards == 1:
+                    #Hit
+                    for k in range(len(all_states_Dval[a])):
+                        if all_states_Dval[a][k].Psum<=21:
+                            s1 += all_states_Dval[a][j].transition_player(all_states_Dval[a][k],1)*(player_values0[62*a+k])
+                        else:
+                            s -= all_states_Dval[a][j].transition_player(all_states_Dval[a][k],1)
+                    # print("first s1 is ", s1)
+                    #double
+                    # for k in range(len(all_states_Dval[a])):
+                    #     s2 += all_states_Dval[a][j].transition_player(all_states_Dval[a][k],1)*(values2[all_states_Dval[a][k].Psum-4][all_states_Dval[a][k].Dsum-2])
+                    # #Split
+                    # if all_states_Dval[a][j].pair!=0:
+                    #     for k in range(len(all_states_Dval[a])):
+                    #         for n in range(len(all_states_Dval[a])):
+                    #             s3 += all_states_Dval[a][j].transition_player(all_states_Dval[a][k],3)*all_states_Dval[a][j].transition_player(all_states_Dval[a][n],3)*(player_values0[62*a+k]+player_values0[62*a+n])
+
+
+                else:
+                    #Hit
+                    for k in range(len(all_states_Dval[a])):
+                        if all_states_Dval[a][k].Psum<=21:
+                            s1 += all_states_Dval[a][j].transition_player(all_states_Dval[a][k],1)*(player_values0[62*a+k])
+                        else:
+                            s -= all_states_Dval[a][j].transition_player(all_states_Dval[a][k],1)
+
+
+                #Stand
+                s4 = values[all_states_Dval[a][j].Psum - 4][all_states_Dval[a][j].Dsum - 2]
+                # print("s4 is   ", s4,"           s1 is   ", s1)
+                l=[s1,s4]
+                player_values1[62*a+j]=max(l)
+                player_actions[62*a+j]=l.index(max(l))+1
+                # player_values1[62 * a + j] = s1
+
+    # print(player_values1)
+    for j in range(len(all_states)):
+        player_values0[j] = player_values1[j]
+
+print(player_actions)
+print(player_values1)
