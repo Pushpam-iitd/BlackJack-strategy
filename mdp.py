@@ -56,17 +56,34 @@ class State:
                     return 0
 
     def transition_dealer(self,s2):
-        if s2.Dsum<=self.Dsum:
+        if self.isTwoCards == 0 and s2.isTwoCards == 1:
             return 0
-        else:
-            if s2.Dsum-self.Dsum==10:
-                return p
-            elif s2.Dsum-self.Dsum<10:
-                return (1-p)/9
-            elif s2.Dsum-self.Dsum==11:
-                return (1-p)/9
-            else:
+        elif self.isTwoCards == 0 and s2.isTwoCards == 0:
+            if s2.Dsum <= self.Dsum:
                 return 0
+            else:
+                if s2.Dsum - self.Dsum == 10:
+                    return p
+                elif s2.Dsum - self.Dsum < 10:
+                    return (1 - p) / 9
+                elif s2.Dsum - self.Dsum == 11:
+                    return (1 - p) / 9
+                else:
+                    return 0
+        elif self.isTwoCards == 1 and s2.isTwoCards == 0:
+            if s2.Dsum <= self.Dsum:
+                return 0
+            else:
+                if s2.Dsum - self.Dsum == 10:
+                    return p
+                elif s2.Dsum - self.Dsum < 10:
+                    return (1 - p) / 9
+                elif s2.Dsum - self.Dsum == 11:
+                    return (1 - p) / 9
+                else:
+                    return 0
+        else:
+            return 0
 
     def reward(self):
         if self.Dsum<17:
@@ -81,9 +98,6 @@ class State:
                 return -1
             else:
                 return 0
-
-    def next_state_player(self):
-        states=[]
 
 
 
@@ -135,6 +149,11 @@ for a in range(4,22):
     for i in range(2,27):
         dealer_states+= [State(player_sum, i, 0,0, 0, 0, 1)]
 
+    for i in range(2,21):
+        dealer_states+= [State(player_sum, i, 0,1, 0, 0, 1)]
+
+
+
 
     dealer_values0 = [0]*(len(dealer_states))
     dealer_values1 = [0]*(len(dealer_states))
@@ -156,6 +175,9 @@ for a in range(4,22):
         for j in values[i]:
             v+=[2*j]
         values2+=[v]
+
+for i in values:
+    print(values)
 
 
 
@@ -182,7 +204,7 @@ for i in range(100):
                         if all_states_Dval[a][k].Psum<=21:
                             s1 += all_states_Dval[a][j].transition_player(all_states_Dval[a][k],1)*(player_values0[62*a+k])
                         else:
-                            s -= all_states_Dval[a][j].transition_player(all_states_Dval[a][k],1)
+                            s1 -= all_states_Dval[a][j].transition_player(all_states_Dval[a][k],1)
                     # print("first s1 is ", s1)
                     #double
                     # for k in range(len(all_states_Dval[a])):
@@ -200,7 +222,7 @@ for i in range(100):
                         if all_states_Dval[a][k].Psum<=21:
                             s1 += all_states_Dval[a][j].transition_player(all_states_Dval[a][k],1)*(player_values0[62*a+k])
                         else:
-                            s -= all_states_Dval[a][j].transition_player(all_states_Dval[a][k],1)
+                            s1 -= all_states_Dval[a][j].transition_player(all_states_Dval[a][k],1)
 
 
                 #Stand
