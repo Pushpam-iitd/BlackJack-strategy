@@ -157,7 +157,8 @@ for a in range(4,22):
             v+=[2*j]
         values2+=[v]
 
-
+for i in values:
+    print (i)
 
 player_values0 = [0]*(len(all_states))
 player_values1 = [0]*(len(all_states))
@@ -205,7 +206,7 @@ for i in range(100):
 
                 #Stand
                 s4 = values[all_states_Dval[a][j].Psum - 4][all_states_Dval[a][j].Dsum - 2]
-                # print("s4 is   ", s4,"           s1 is   ", s1)
+                print("s4 is   ", s4,"           s1 is   ", s1)
                 l=[s1,s4]
                 player_values1[62*a+j]=max(l)
                 player_actions[62*a+j]=l.index(max(l))+1
@@ -215,5 +216,5 @@ for i in range(100):
     for j in range(len(all_states)):
         player_values0[j] = player_values1[j]
 
-print(player_actions)
-print(player_values1)
+# print(player_actions)
+# print(player_values1)
