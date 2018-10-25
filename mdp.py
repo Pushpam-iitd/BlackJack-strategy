@@ -111,7 +111,7 @@ for i in range(5,20):
 
 for i in range(2,10):
     for j in range(10):
-        all_states+=[State(i+1,j+2,1,1,0,0,0)]
+        all_states+=[State(i+11,j+2,1,1,0,0,0)]
 
 for i in range(2,11):
     for j in range(10):
@@ -177,7 +177,7 @@ for a in range(4,22):
         values2+=[v]
 
 for i in values:
-    print(values)
+    print(i)
 
 
 
