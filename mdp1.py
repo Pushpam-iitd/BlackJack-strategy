@@ -124,14 +124,14 @@ for i in range(5, 20):
 
 for i in range(2, 10):
     for j in range(10):
-        all_states += [State(i + 1, j + 2, 1, 1, 0, 0, 0)]
+        all_states += [State(i + 11, j + 2, 1, 1, 0, 0, 0)]
 
 for i in range(2, 11):
     for j in range(10):
         all_states += [State(2 * i, j + 2, 0, 1, 0, i, 0)]
 
 for j in range(10):
-    all_states += [State(2, j + 2, 2, 1, 0, 1, 0)]
+    all_states += [State(12, j + 2, 2, 1, 0, 1, 0)]
 
 for i in range(3, 22):
     for j in range(10):
@@ -196,10 +196,8 @@ player_values1 = [0]*(len(all_states))
 player_actions = [1]*(len(all_states)) #1 for Hit 2 for Double 3 for Split 4 for Stand
 
 
-
 # check this function:  player_values update ; max over s1 ans s4 only; match with pseudocode
 for i in range(10):
-    print(i)
     for a in range(10):
         for j in range(len(all_states_Dval[a])):
             if all_states_Dval[a][j].Psum<=21:
@@ -236,10 +234,12 @@ for i in range(10):
 
                 #Stand
                 s4 = values[all_states_Dval[a][j].Psum - 4][all_states_Dval[a][j].Dsum - 2]
-                # print("s4 is   ", s4,"           s1 is   ", s1,  "     and     ", a,"-",j)
                 l=[s1,s4]
                 player_values1[62*a+j]=max(l)
                 player_actions[62*a+j]=l.index(max(l))+1
+                # if all_states_Dval[a][j].Psum==6 and all_states_Dval[a][j].isTwoCards==1:
+                #     print("s4 is   ", s4,"           s1 is   ", s1,  "     and     ", a,"-",j)
+                #     print(l.index(max(l))+1)
                 # player_values1[62 * a + j] = s1
 
     # print(player_values1)
@@ -253,20 +253,20 @@ for i in range(10):
 two_cards_states=[]
 two_cards_values=[]
 two_cards_actions=[]
-for i in range(len(all_states)):
-    if all_states[i].isTwoCards==1 and all_states[i].Psum!=21:
-        two_cards_states+=[all_states[i]]
-        two_cards_values+=[player_values1[i]]
-        two_cards_actions+=[player_actions[i]]
-
+for i in range(10):
+    for j in range(62):
+        if all_states_Dval[i][j].isTwoCards==1 and all_states_Dval[i][j].isBlackJack==0:
+            two_cards_states += [all_states_Dval[i][j]]
+            two_cards_values += [player_values1[62*i+j]]
+            two_cards_actions += [player_actions[62*i+j]]
 
 
 actions=[]
-for i in two_cards_actions:
-    if i==1:
-        actions+=["H"]
+for i in range(len(two_cards_actions)):
+    if two_cards_actions[i]==1:
+        actions+=["H"+str(two_cards_states[i].Psum)]
     else:
-        actions+=["S"]
+        actions+=["S"+str(two_cards_states[i].Psum)]
 
-for i in range(0,len(actions),10):
-    print(actions[i]," ",actions[i+1]," ",actions[i+1]," ",actions[i+3]," ",actions[i+4]," ",actions[i+5]," ",actions[i+6]," ",actions[i+7]," ",actions[i+8]," ",actions[i+9])
+for i in range(0,33):
+    print(actions[i]," ",actions[i+33]," ",actions[i+33*2]," ",actions[i+33*3]," ",actions[i+33*4]," ",actions[i+33*5]," ",actions[i+33*6]," ",actions[i+33*7]," ",actions[i+33*8]," ",actions[i+33*9])
